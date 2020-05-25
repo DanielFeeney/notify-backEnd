@@ -42,6 +42,18 @@ public class UsuarioService implements IObject<Usuario> {
 		
 	}
 	
+	public Integer verificarCriacao(String cpf) {
+		return usuarioRepository.verificarCriacaoPublicacao(cpf);
+	}
+	
+	public Integer verificarEdicao(String cpf, Long idPublicacao) {
+		return usuarioRepository.verificarEdicaoPublicacao(cpf, idPublicacao);
+	}
+	
+	public Integer verificarDelecao(String cpf, Long idPublicacao) {
+		return usuarioRepository.verificarDelecaoPublicacao(cpf,idPublicacao);
+	}
+	
 	public Optional<Usuario> buscarPelasInformacoesUsuario(String cpf, Date dataNascimento, String senha){
 		return usuarioRepository.buscarPorCpfDataNascimentoESenha(cpf, dataNascimento, bCryptPasswordEncoder.encode(senha));
 	}

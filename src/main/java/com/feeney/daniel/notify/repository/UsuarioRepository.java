@@ -23,5 +23,54 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	
 	Optional<Usuario> findByCpf(String cpf);
-
+	
+	@Query(" Select Count(u.id) from Usuario u "
+			+ " join u.perfil p "
+			+ " where u.cpf = ?1 "
+			+ " and p.id in ( "
+			+ " Select p2.id from PerfilPermissao pp "
+			+ " join pp.perfil p2 "
+			+ " join pp.permissao per "
+			+ " where per.descricao = 'ROLE_POST_PUBLICACAO' "
+			+ " and p2.id = p.id) ")
+		Integer verificarCriacaoPublicacao(String cpf);
+	
+	@Query(" Select Count(u.id) from Usuario u "
+			+ " join u.perfil p "
+			+ " where u.cpf = ?1 "
+			+ " and "
+			+ "	("
+			+ "	p.id in ( "
+			+ " Select p2.id from PerfilPermissao pp "
+			+ " join pp.perfil p2 "
+			+ " join pp.permissao per "
+			+ " where per.descricao = 'ROLE_EDIT_PUBLICACAO' "
+			+ " and p2.id = p.id) or "
+			+ " u.id in ("
+			+ " Select u2.id from Publicacao pu "
+			+ " join pu.usuarioPublicacao u2 "
+			+ " where u.cpf = ?1 "
+			+ " and pu.id = ?2 "
+			+ " )"
+			+ ") ")
+		Integer verificarEdicaoPublicacao(String cpf, Long idPublicacao);
+	
+	@Query(" Select Count(u.id) from Usuario u "
+			+ " join u.perfil p "
+			+ " where u.cpf = ?1 "
+			+ " and "
+			+ "	(p.id in ( "
+			+ " Select p2.id from PerfilPermissao pp "
+			+ " join pp.perfil p2 "
+			+ " join pp.permissao per "
+			+ " where per.descricao = 'ROLE_DELETE_PUBLICACAO' "
+			+ " and p2.id = p.id) or "
+			+ " u.id in ("
+			+ " Select u2.id from Publicacao pu "
+			+ " join pu.usuarioPublicacao u2 "
+			+ " where u.cpf = ?1 "
+			+ " and pu.id = ?2 "
+			+ " )"
+			+ ") ")
+		Integer verificarDelecaoPublicacao(String cpf, Long idPublicacao);
 }

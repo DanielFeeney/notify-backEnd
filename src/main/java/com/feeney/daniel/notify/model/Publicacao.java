@@ -25,6 +25,7 @@ public class Publicacao implements Serializable {
 	private String subTitulo;
 	private String descricao;
 	private String imagem;
+	private Boolean ativo;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario_publicacao", columnDefinition = "bigint")
@@ -34,7 +35,7 @@ public class Publicacao implements Serializable {
 	private Date dataCriacao;
 	
 	public Publicacao() {
-		
+		this.ativo = true;
 	}
 	
 	public Publicacao(PublicacaoDTO publicacaoDTO) {
@@ -42,6 +43,7 @@ public class Publicacao implements Serializable {
 		this.subTitulo = publicacaoDTO.getSubTitulo();
 		this.descricao = publicacaoDTO.getDescricao();
 		this.dataCriacao = publicacaoDTO.getDataCriacao();
+		this.ativo = true;
 	}
 	
 	public Long getId() {
@@ -88,6 +90,14 @@ public class Publicacao implements Serializable {
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	@Override
