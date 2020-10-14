@@ -45,6 +45,13 @@ public class TagResource {
 		public ResponseEntity<?> buscarTodos() {
 			 return ResponseEntity.status(HttpStatus.OK).body(tagService.listarTagDTO());
 		}
+		
+		@PreAuthorize("hasAnyRole('ROLE_TAG')")
+		@GetMapping("publicacao/{idPublicacao}")
+		public ResponseEntity<?> buscarTodosETodosDePublicacao(@PathVariable Long idPublicacao) {
+			Collection<TagDTO> colTagDTO = tagService.listarTodosTagDTOETodosTagDTODePublicacao(idPublicacao);
+			 return ResponseEntity.status(HttpStatus.OK).body(colTagDTO);
+		}
 	
 	/*
 	 * @GetMapping("/{id}") public ResponseEntity<?> buscar(@PathVariable Long id){

@@ -35,6 +35,31 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 			+ "where p.id = ?1)")
 	Collection<Tag> listTagDePublicacao(Long publicacaoId);
 	
+	@Query("Select new com.feeney.daniel.notify.dto.TagDTO(t.id, t.descricao, true) from Tag t "
+			+ "where t.id in "
+			+ "(Select t2.id from PublicacaoTag pt "
+			+ "join pt.publicacao p "
+			+ "join pt.tag t2 "
+			+ "where p.id = ?1)")
+	Collection<TagDTO> listTagDTODePublicacao(Long publicacaoId);
+	
+	@Query("Select new com.feeney.daniel.notify.dto.TagDTO(t.id, t.descricao, "
+			+ "case when "
+			+ " (Select COUNT(t2.id) from Tag t2 "
+			+ " where t2.id in "
+			+ " (Select t3.id from PublicacaoTag pt " 
+			+ " join pt.publicacao p " 
+			+ " join pt.tag t3 " 
+			+ " where p.id = ?1"
+			+ " ) "
+			+ " AND t2.id = t.id"
+			+ " ) > 0 "
+			+ " THEN true "
+			+ " ELSE false "
+			+ " END"
+			+ ") from Tag t ")
+	Collection<TagDTO> listarTodosTagDTOETodosTagDTODePublicacao(Long publicacaoId);
+	
 	@Query("Select new com.feeney.daniel.notify.dto.TagDTO(t.id, t.descricao, false)"
 			+ " from Tag t")
 	Collection<TagDTO> colTagDTO();

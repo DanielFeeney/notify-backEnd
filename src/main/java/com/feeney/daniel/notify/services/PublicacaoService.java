@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.feeney.daniel.notify.interfaces.IObject;
 import com.feeney.daniel.notify.model.Publicacao;
@@ -38,8 +39,9 @@ public class PublicacaoService implements IObject<Publicacao> {
 	}
 
 	@Override
+	@Transactional
 	public void remover(Long id) {
-		publicacaoRepository.deleteById(id);
+		publicacaoRepository.delete(id);
 		
 	}
 

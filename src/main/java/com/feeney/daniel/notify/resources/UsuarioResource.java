@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.feeney.daniel.notify.dto.UsuarioDTO;
 import com.feeney.daniel.notify.model.Usuario;
+import com.feeney.daniel.notify.services.PublicacaoService;
 import com.feeney.daniel.notify.services.UsuarioService;
 
 @RestController
@@ -27,9 +29,12 @@ public class UsuarioResource {
 	
 	@Autowired public UsuarioService usuarioService;
 	
+	@Autowired public BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@PreAuthorize("hasAnyRole('ROLE_ACESSO')")
-	@GetMapping("/criacao/{cpf}")
-	public ResponseEntity<?> criacao(@PathVariable String cpf){
+	@PostMapping("/criacao")
+	public ResponseEntity<?> criacao(
+			@PathParam(value = "cpf") String cpf){
 		try {
 			if(usuarioService.verificarCriacao(cpf) > 0) {
 				return ResponseEntity.status(HttpStatus.OK).body(true);

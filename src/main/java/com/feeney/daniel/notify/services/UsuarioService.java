@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,10 @@ public class UsuarioService implements IObject<Usuario> {
 	
 	public static UserSS authenticated() {
 		try {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			if(auth instanceof AnonymousAuthenticationToken) {
+				System.out.println("Erro");
+			}
 			return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		}catch(Exception e) {
 			return null;

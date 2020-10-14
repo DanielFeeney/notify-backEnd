@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -23,10 +24,10 @@ public class Usuario{
 	
 	private String cpf;
 	
+	@JsonFormat(pattern="dd/MM/yyyy")
 	@Column(name = "dt_nascimento")
 	private Date dtNascimento;
-	
-	@JsonIgnore
+
 	private String senha;
 	
 	@ManyToOne

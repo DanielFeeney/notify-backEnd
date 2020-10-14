@@ -39,6 +39,7 @@ public class Publicacao implements Serializable {
 	}
 	
 	public Publicacao(PublicacaoDTO publicacaoDTO) {
+		this.id = publicacaoDTO.getId();
 		this.titulo = publicacaoDTO.getTitulo();
 		this.subTitulo = publicacaoDTO.getSubTitulo();
 		this.descricao = publicacaoDTO.getDescricao();

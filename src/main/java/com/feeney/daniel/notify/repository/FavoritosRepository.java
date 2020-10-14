@@ -17,7 +17,8 @@ public interface FavoritosRepository extends JpaRepository<Favoritos, Long> {
 	@Query("Select p from Favoritos f "
 			+ "join f.publicacao p "
 			+ "join f.usuario u "
-			+ "where u.cpf = ?1")
+			+ "where u.cpf = ?1 "
+			+ "order by p.id")
 	Collection<Publicacao> getPublicacaoByIdUsuario(String cpf);
 	
 	@Query("Select f from Favoritos f "

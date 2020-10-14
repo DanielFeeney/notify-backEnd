@@ -28,6 +28,10 @@ public class PublicacaoTagService implements IObject<PublicacaoTag>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Optional<PublicacaoTag> buscarPorPublicacaoETag(Long idPublicacao, Long idTag) {
+		return publicacaoTagRepository.buscarPorIdPublicacaoIdTag(idPublicacao, idTag);
+	}
 
 	@Override
 	public PublicacaoTag salvar(PublicacaoTag t) {
@@ -38,6 +42,10 @@ public class PublicacaoTagService implements IObject<PublicacaoTag>{
 	public void remover(Long id) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void remover(PublicacaoTag publicacaoTag) {
+		publicacaoTagRepository.delete(publicacaoTag);		
 	}
 
 }

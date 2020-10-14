@@ -51,5 +51,12 @@ public class TagService implements IObject<Tag> {
 		return tagRepository.listTagDePublicacao(publicacaoId);
 	}
 	
+	public Collection<TagDTO> listarTodosTagDTOPublicacao(Long publicacaoId){
+		return tagRepository.listTagDTODePublicacao(publicacaoId);
+	}
+
+	public Collection<TagDTO> listarTodosTagDTOETodosTagDTODePublicacao(Long idPublicacao) {
+		return tagRepository.listarTodosTagDTOETodosTagDTODePublicacao(idPublicacao);
+	}
 
 }

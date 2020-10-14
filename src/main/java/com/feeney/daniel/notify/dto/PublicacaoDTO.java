@@ -15,7 +15,7 @@ public class PublicacaoDTO {
 	private String imagem;
 	private Date dataCriacao;
 	private String cpfUsuario;
-	private Collection<Tag> colTag;
+	private Collection<TagDTO> colTagDTO;
 	
 	
 	
@@ -69,12 +69,15 @@ public class PublicacaoDTO {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	public Collection<Tag> getColTag() {
-		return colTag;
+	
+	public Collection<TagDTO> getColTagDTO() {
+		return colTagDTO;
 	}
-	public void setColTag(Collection<Tag> colTag) {
-		this.colTag = colTag;
+
+	public void setColTagDTO(Collection<TagDTO> colTagDTO) {
+		this.colTagDTO = colTagDTO;
 	}
+
 	public String getCpfUsuario() {
 		return cpfUsuario;
 	}

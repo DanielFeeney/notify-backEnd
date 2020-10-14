@@ -32,6 +32,7 @@ public class PublicacaoTag {
 		this.publicacao = publicacao;
 		this.tag = tag;
 	}
+
 	public Publicacao getPublicacao() {
 		return publicacao;
 	}
