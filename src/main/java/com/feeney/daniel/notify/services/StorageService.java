@@ -1,6 +1,7 @@
 package com.feeney.daniel.notify.services;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,11 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class StorageService {
  
   Logger log = LoggerFactory.getLogger(this.getClass().getName());
-  private final Path rootLocation = Paths.get("upload-dir");
+  private final Path rootLocation = Paths.get("imagens");
  
-  public void store(MultipartFile file) {
+  public void store(MultipartFile file, String texto) {
     try {
-      Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+      String arquivo = "file"+texto+".jpg";
+      findAndDelete(arquivo);
+      InputStream iS = file.getInputStream();
+      Files.copy(iS, this.rootLocation.resolve(arquivo));
     } catch (Exception e) {
       throw new RuntimeException("FAIL!");
     }
@@ -44,6 +48,20 @@ public class StorageService {
  
   public void deleteAll() {
     FileSystemUtils.deleteRecursively(rootLocation.toFile());
+  }
+  
+  public void findAndDelete(String filename) {
+	  try {
+	      Path file = rootLocation.resolve(filename);
+	      Resource resource = new UrlResource(file.toUri());
+	      if (resource.exists() || resource.isReadable()) {
+	    	  Files.deleteIfExists(file);
+	      }
+	    } catch (MalformedURLException e) {
+	      throw new RuntimeException("FAIL!");
+	    } catch (IOException e) {
+			e.printStackTrace();
+		}
   }
  
   public void init() {

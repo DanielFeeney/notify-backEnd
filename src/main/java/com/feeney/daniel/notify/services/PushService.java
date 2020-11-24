@@ -12,36 +12,32 @@ import org.unbescape.html.HtmlEscape;
 import com.feeney.daniel.notify.services.teste.IcndbJoke;
 
 @Service
-public class PushTeste {
+public class PushService {
 
   private final RestTemplate restTemplate;
 
   private final FcmClient fcmClient;
 
-  private int id = 0;
-
-  public PushTeste(FcmClient fcmClient) {
+  public PushService(FcmClient fcmClient) {
     this.restTemplate = new RestTemplate();
     this.fcmClient = fcmClient;
   }
 
-  @Scheduled(fixedDelay = 30_000)
+	/* @Scheduled(fixedDelay = 30_000) */
   public void sendChuckQuotes() {
-		/*
-		 * IcndbJoke joke =
-		 * this.restTemplate.getForObject("http://api.icndb.com/jokes/random",
-		 * IcndbJoke.class);
-		 */
-    sendPushMessage(HtmlEscape.unescapeHtml("Mandando uma mensagem"));
+	  IcndbJoke joke = this.restTemplate.getForObject("http://api.icndb.com/jokes/random",
+		        IcndbJoke.class);
+	  sendPushMessage(HtmlEscape.unescapeHtml(joke.getValue().getJoke()));
   }
 
   void sendPushMessage(String joke) {
     Map<String, String> data = new HashMap<>();
-    data.put("id", String.valueOf(++this.id));
-    data.put("text", joke);
+    data.put("id", String.valueOf(1));
+    data.put("titulo", "Titulo");
+    data.put("descricao", "Descrição");
 
     // Send a message
-    System.out.println("Sending chuck joke...");
+    System.out.println("Mandando mensagem...");
     try {
       this.fcmClient.sendJoke(data);
     }

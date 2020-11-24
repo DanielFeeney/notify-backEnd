@@ -37,17 +37,15 @@ public class AuthResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> salvarUsuario(@RequestBody Usuario usuario){
-		try {
-			usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
-			usuarioService.salvar(usuario);
-			return ResponseEntity.status(HttpStatus.OK).build();			
-		}
-		catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-		
-	}
+	/*
+	 * @PostMapping public ResponseEntity<?> salvarUsuario(@RequestBody Usuario
+	 * usuario){ try {
+	 * usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
+	 * usuarioService.salvar(usuario); return
+	 * ResponseEntity.status(HttpStatus.OK).build(); } catch(Exception e) { return
+	 * ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); }
+	 * 
+	 * }
+	 */
 
 }

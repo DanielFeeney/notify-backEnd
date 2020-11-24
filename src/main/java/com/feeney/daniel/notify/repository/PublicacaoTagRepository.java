@@ -17,6 +17,7 @@ public interface PublicacaoTagRepository extends JpaRepository<PublicacaoTag, Lo
 		+ " join pt.publicacao p"
 		+ " join pt.tag t"
 		+ " where p.id = ?1"
-		+ " and t.id = ?2")
+		+ " and t.id = ?2"
+		+ " and t.ativo = true")
 	Optional<PublicacaoTag> buscarPorIdPublicacaoIdTag(Long idPublicacao, Long idTag);
 }

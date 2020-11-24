@@ -34,49 +34,41 @@ public class FcmClient {
 					.setCredentials(GoogleCredentials.fromStream(serviceAccount)).build();
 
 			FirebaseApp.initializeApp(options);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void sendJoke(Map<String, String> data)
-			throws InterruptedException, ExecutionException {
+	public void sendJoke(Map<String, String> data) throws InterruptedException, ExecutionException {
 
-		AndroidConfig androidConfig = AndroidConfig.builder()
-				.setTtl(Duration.ofMinutes(2).toMillis()).setCollapseKey("chuck")
-				.setPriority(Priority.HIGH)
-        .setNotification(AndroidNotification.builder().setTag("chuck").build()).build();
+		AndroidConfig androidConfig = AndroidConfig.builder().setTtl(Duration.ofMinutes(2).toMillis())
+				.setCollapseKey("chuck").setPriority(Priority.HIGH)
+				.setNotification(AndroidNotification.builder().setTag("chuck").build()).build();
 
 		ApnsConfig apnsConfig = ApnsConfig.builder()
-        .setAps(Aps.builder().setCategory("chuck").setThreadId("chuck").build()).build();
+				.setAps(Aps.builder().setCategory("chuck").setThreadId("chuck").build()).build();
 
-		Message message = Message.builder().putAllData(data).setTopic("chuck")
-				.setApnsConfig(apnsConfig).setAndroidConfig(androidConfig)
-				.setNotification(Notification.builder().setTitle("Chuck Norris Joke")
-						.setBody("A new Chuck Norris joke has arrived").build())
+		Message message = Message.builder().putAllData(data).setTopic("chuck").setApnsConfig(apnsConfig)
+				.setAndroidConfig(androidConfig).setNotification(Notification.builder().setTitle("IFMS Notify")
+						.setBody("Uma nova publicação de seu interesse está disponível").build())
 				.build();
 
 		String response = FirebaseMessaging.getInstance().sendAsync(message).get();
-		System.out.println("Sent message: " + response);
+		System.out.println("Mensagem enviada: " + response);
 	}
 
 	public void sendPersonalMessage(String clientToken, Map<String, String> data)
 			throws InterruptedException, ExecutionException {
-		AndroidConfig androidConfig = AndroidConfig.builder()
-				.setTtl(Duration.ofMinutes(2).toMillis()).setCollapseKey("personal")
-				.setPriority(Priority.HIGH)
-				.setNotification(AndroidNotification.builder().setTag("personal").build())
-				.build();
+		AndroidConfig androidConfig = AndroidConfig.builder().setTtl(Duration.ofMinutes(2).toMillis())
+				.setCollapseKey("personal").setPriority(Priority.HIGH)
+				.setNotification(AndroidNotification.builder().setTag("personal").build()).build();
 
-    ApnsConfig apnsConfig = ApnsConfig.builder()
-        .setAps(Aps.builder().setCategory("personal").setThreadId("personal").build())
-				.build();
+		ApnsConfig apnsConfig = ApnsConfig.builder()
+				.setAps(Aps.builder().setCategory("personal").setThreadId("personal").build()).build();
 
-		Message message = Message.builder().putAllData(data).setToken(clientToken)
-				.setApnsConfig(apnsConfig).setAndroidConfig(androidConfig)
-				.setNotification(Notification.builder().setTitle("Personal Message")
-						.setBody("A Personal Message").build())
+		Message message = Message.builder().putAllData(data).setToken(clientToken).setApnsConfig(apnsConfig)
+				.setAndroidConfig(androidConfig).setNotification(Notification.builder().setTitle("IFMS Notify")
+						.setBody("Uma nova publicação de seu interesse está disponível").build())
 				.build();
 
 		String response = FirebaseMessaging.getInstance().sendAsync(message).get();

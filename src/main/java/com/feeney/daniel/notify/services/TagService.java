@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.feeney.daniel.notify.dto.TagDTO;
 import com.feeney.daniel.notify.interfaces.IObject;
@@ -34,8 +35,9 @@ public class TagService implements IObject<Tag> {
 	}
 
 	@Override
+	@Transactional
 	public void remover(Long id) {
-		tagRepository.deleteById(id);
+		tagRepository.delete(id);
 		
 	}
 	

@@ -12,11 +12,13 @@ import com.feeney.daniel.notify.model.Permissao;
 public interface PermissaoRepository extends JpaRepository<Permissao, Long> {
 	
 	@Query("Select p from Permissao p "
-		+ "where p.id in ("
+		+ "where p.id in ( "
 		+ "select p2.id from PerfilPermissao pp "
 		+ "join pp.perfil per "
 		+ "join pp.permissao p2 "
 		+ "where per.id = ?1)")
 	Set<Permissao> buscarPermissoesPorPerfil(Long idPerfil);
+	
+	
 
 }

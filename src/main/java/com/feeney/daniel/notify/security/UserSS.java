@@ -28,7 +28,7 @@ public class UserSS implements UserDetails {
 	public UserSS(Long id, Date dtNascimento, String cpf, String senha,
 			Set<Permissao> permissoes) {
 		this.id = id;
-		this.dtNascimento = dtNascimento;
+		this.dtNascimento = dtNascimento;		
 		this.cpf = cpf;
 		this.senha = senha;
 		this.authorities = permissoes.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());

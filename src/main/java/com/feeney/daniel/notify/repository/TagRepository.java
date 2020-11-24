@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -19,11 +20,13 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 				+ "join f.usuario u "
 				+ "join f.tag t2 "
 				+ "where t2.id = t.id "
-				+ "AND u.cpf = ?1) = 1 "
+				+ "AND u.cpf = ?1 "
+				+ "AND t2.ativo = true) = 1 "
 				+ "THEN TRUE "
 				+ "ELSE FALSE "
 				+ "END ) "
-			+ " from Tag t")
+			+ " from Tag t"
+			+ " where t.ativo = true")
 	Collection<TagDTO> colTagDTODeUsuario(String cpf);
 
 	
@@ -32,7 +35,8 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 			+ "(Select t2.id from PublicacaoTag pt "
 			+ "join pt.publicacao p "
 			+ "join pt.tag t2 "
-			+ "where p.id = ?1)")
+			+ "where p.id = ?1)"
+			+ " and t.ativo = true")
 	Collection<Tag> listTagDePublicacao(Long publicacaoId);
 	
 	@Query("Select new com.feeney.daniel.notify.dto.TagDTO(t.id, t.descricao, true) from Tag t "
@@ -40,7 +44,8 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 			+ "(Select t2.id from PublicacaoTag pt "
 			+ "join pt.publicacao p "
 			+ "join pt.tag t2 "
-			+ "where p.id = ?1)")
+			+ "where p.id = ?1)"
+			+ " and t.ativo = true")
 	Collection<TagDTO> listTagDTODePublicacao(Long publicacaoId);
 	
 	@Query("Select new com.feeney.daniel.notify.dto.TagDTO(t.id, t.descricao, "
@@ -57,10 +62,19 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 			+ " THEN true "
 			+ " ELSE false "
 			+ " END"
-			+ ") from Tag t ")
+			+ ") from Tag t "
+			+ " where t.ativo = true")
 	Collection<TagDTO> listarTodosTagDTOETodosTagDTODePublicacao(Long publicacaoId);
 	
 	@Query("Select new com.feeney.daniel.notify.dto.TagDTO(t.id, t.descricao, false)"
-			+ " from Tag t")
+			+ " from Tag t"
+			+ " where t.ativo = true")
 	Collection<TagDTO> colTagDTO();
+	
+	
+	@Modifying
+	@Query("Update Tag "
+			+ " Set ativo = false "
+			+ " where id = ?1")
+	void delete(Long id);
 }

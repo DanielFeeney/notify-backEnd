@@ -28,7 +28,9 @@ public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {
 		+ " (select tag.id from Filtros f"
 		+ " join f.tag tag"
 		+ " join f.usuario usuario"
-		+ " where usuario.cpf = ?1)")
+		+ " where usuario.cpf = ?1"
+		+ " and tag.ativo = true)"
+		+ " order by p.dataCriacao desc")
 	Page<Publicacao> listPublicacaoPelaPreferenciaDoUsuario(String cpf, Pageable pageable);
 
 	

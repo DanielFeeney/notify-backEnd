@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private static final String[] PUBLIC_MATCHERS = {
 			"/usuario/**",
-			"/message/**"
+			"/message/**",
+			"/auth/**"
 	};
 
 	@Override

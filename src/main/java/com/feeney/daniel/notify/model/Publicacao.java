@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.websocket.server.PathParam;
 
 import com.feeney.daniel.notify.dto.PublicacaoDTO;
 
@@ -44,6 +45,21 @@ public class Publicacao implements Serializable {
 		this.subTitulo = publicacaoDTO.getSubTitulo();
 		this.descricao = publicacaoDTO.getDescricao();
 		this.dataCriacao = publicacaoDTO.getDataCriacao();
+		this.ativo = true;
+	}
+	
+	public Publicacao(
+			Long idPublicacao,
+			String titulo,
+			String subTitulo,
+			String descricao,
+			String cpf) {
+		
+		this.id = idPublicacao;		
+		this.titulo = titulo;
+		this.subTitulo = subTitulo;
+		this.descricao = descricao;
+		this.dataCriacao = new Date();
 		this.ativo = true;
 	}
 	

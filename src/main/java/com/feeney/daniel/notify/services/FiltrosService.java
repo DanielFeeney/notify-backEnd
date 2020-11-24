@@ -1,5 +1,6 @@
 package com.feeney.daniel.notify.services;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.feeney.daniel.notify.interfaces.IObject;
 import com.feeney.daniel.notify.model.Filtros;
+import com.feeney.daniel.notify.model.Tag;
 import com.feeney.daniel.notify.repository.FiltrosRepository;
 
 @Service
@@ -39,6 +41,10 @@ public class FiltrosService implements IObject<Filtros> {
 	
 	public Optional<Filtros> buscarPorUsuarioETag(String cpf, Long idTag) {
 		return filtrosRepository.buscarFiltroPorUsuarioETag(cpf, idTag);
+	}
+	
+	public Collection<String> buscarTokenDeUsuarioPorTag(Collection<Tag> listTag){
+		return filtrosRepository.buscarTokensDeUsuariosPorTag(listTag);
 	}
 
 }

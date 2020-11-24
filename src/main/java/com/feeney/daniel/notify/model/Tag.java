@@ -14,6 +14,7 @@ public class Tag {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
+	private Boolean ativo;
 	public Long getId() {
 		return id;
 	}
@@ -25,6 +26,22 @@ public class Tag {
 	}
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	public Tag() {
+	}
+	
+	
+	public Tag(String descricao, Boolean ativo) {
+		super();
+		this.descricao = descricao;
+		this.ativo = ativo;
 	}
 	@Override
 	public int hashCode() {

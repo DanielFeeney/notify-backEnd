@@ -8,13 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.feeney.daniel.notify.interfaces.IObject;
+import com.feeney.daniel.notify.model.PerfilPermissao;
 import com.feeney.daniel.notify.model.Permissao;
+import com.feeney.daniel.notify.repository.PerfilPermissaoRepository;
 import com.feeney.daniel.notify.repository.PermissaoRepository;
 
 @Service
 public class PermissaoService implements IObject<Permissao> {
 	
 	@Autowired public PermissaoRepository permissaoRepository;
+	
+	@Autowired public PerfilPermissaoRepository perfilPermissaoRepository;
 
 	@Override
 	public List<Permissao> buscarTodos() {
@@ -42,6 +46,10 @@ public class PermissaoService implements IObject<Permissao> {
 	
 	public Set<Permissao> buscarPermissoesPorPerfil(Long idPerfil){
 		return permissaoRepository.buscarPermissoesPorPerfil(idPerfil);
+	}
+	
+	public List<PerfilPermissao> buscarPerfilPermissaoPorCpf(String cpf){
+		return perfilPermissaoRepository.buscarPermissoesPorCpf(cpf);
 	}
 
 }

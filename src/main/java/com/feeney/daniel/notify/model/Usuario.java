@@ -36,6 +36,11 @@ public class Usuario{
 	private String nome;
 	private String foto;
 	
+	private Boolean msg;
+	
+	@Column(name = "fcm_token")
+	private String fcmToken;
+	
 	
 
 	public Long getId() {
@@ -80,5 +85,18 @@ public class Usuario{
 	public void setFoto(String foto) {
 		this.foto = foto;
 	}
+	public Boolean getMsg() {
+		return msg;
+	}
+	public void setMsg(Boolean msg) {
+		this.msg = msg;
+	}
+	public String getFcmToken() {
+		return fcmToken;
+	}
+	public void setFcmToken(String fcmToken) {
+		this.fcmToken = fcmToken;
+	}
+	
 	
 }
