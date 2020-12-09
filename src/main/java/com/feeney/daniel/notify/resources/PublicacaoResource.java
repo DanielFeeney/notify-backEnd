@@ -183,11 +183,16 @@ public class PublicacaoResource {
 	@PreAuthorize("hasAnyRole('ROLE_PUBLICACAO')")
 	@GetMapping("/imagem/{idPublicacao}")
 	  public ResponseEntity<?> getFile(@PathVariable Long idPublicacao) {
-	    Resource file = storageService.loadFile("file" + idPublicacao + ".jpg");
-	    	    
+	    try {
+	    	Resource file = storageService.loadFile("file" + idPublicacao + ".jpg");
+    	    
 			return ResponseEntity.ok()
 			    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
 			    .body(file);
+	    }
+	    catch(Exception e) {
+	    	return ResponseEntity.ok().build();
+	    }
 	  }
 
 }
