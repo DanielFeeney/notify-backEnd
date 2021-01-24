@@ -75,12 +75,13 @@ public class PublicacaoResource {
 	public FiltrosService filtrosService;
 
 	@PreAuthorize("hasAnyRole('ROLE_PUBLICACAO')")
-	@GetMapping("/preferencias/{cpf}/{page}/{linesPerPage}")
+	@GetMapping("/preferencias/")
 	public ResponseEntity<?> buscarTodos(
-			@PathVariable String cpf,
-			@PathVariable(value = "page") Integer page,
-			@PathVariable(value = "linesPerPage") Integer linesPerPage) {
-		List<Publicacao> list = publicacaoService.buscarTodosPelaPreferenciaDoUsuario(cpf, page, linesPerPage);
+			@RequestParam String cpf,
+			@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "linesPerPage") Integer linesPerPage,
+			@RequestParam(value = "filtros") List<Long> filtros) {
+		List<Publicacao> list = publicacaoService.buscarTodosPelaPreferenciaDoUsuario(filtros, page, linesPerPage);
 		return ResponseEntity.status(HttpStatus.OK).body(list);
 	}
 

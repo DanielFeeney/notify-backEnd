@@ -25,13 +25,14 @@ public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {
 		+ " join pt.tag t"
 		+ " where p.ativo = true"
 		+ " and t.id in"
-		+ " (select tag.id from Filtros f"
-		+ " join f.tag tag"
-		+ " join f.usuario usuario"
-		+ " where usuario.cpf = ?1"
-		+ " and tag.ativo = true)"
+		+ " (?1)"
 		+ " order by p.dataCriacao desc")
-	Page<Publicacao> listPublicacaoPelaPreferenciaDoUsuario(String cpf, Pageable pageable);
+	Page<Publicacao> listPublicacaoPelaPreferenciaDoUsuario(List<Long> filtros, Pageable pageable);
+	
+	@Query("Select distinct p from Publicacao p"
+			+ " where p.ativo = true"
+			+ " order by p.dataCriacao desc")
+		Page<Publicacao> listPublicacao(Pageable pageable);
 
 	
 	@Modifying

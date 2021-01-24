@@ -23,9 +23,12 @@ public class PublicacaoService implements IObject<Publicacao> {
 		return publicacaoRepository.findAll();
 	}
 	
-	public List<Publicacao> buscarTodosPelaPreferenciaDoUsuario(String cpf, int page, int linesPerPage) {
+	public List<Publicacao> buscarTodosPelaPreferenciaDoUsuario(List<Long> filtros, int page, int linesPerPage) {
 		PageRequest pageRequest = PageRequest.of(page,linesPerPage);
-		return publicacaoRepository.listPublicacaoPelaPreferenciaDoUsuario(cpf, pageRequest).getContent();
+		if(!filtros.isEmpty()) {
+			return publicacaoRepository.listPublicacaoPelaPreferenciaDoUsuario(filtros, pageRequest).getContent();
+		}
+		return publicacaoRepository.listPublicacao(pageRequest).getContent();
 	}
 
 	@Override
