@@ -39,8 +39,6 @@ public class TagResource {
 		
 		@Autowired public UsuarioService usuarioService;
 		
-		@Autowired public PermissaoService permissaoService;
-		
 		@PreAuthorize("hasAnyRole('ROLE_TAG')")
 		@GetMapping()
 		public ResponseEntity<?> buscarTodos() {
@@ -113,17 +111,5 @@ public class TagResource {
 				return ResponseEntity.notFound().build();
 		}
 		
-		
-		@PreAuthorize("hasAnyRole('ROLE_TAG')")
-		@GetMapping("permissao/{cpf}")
-		public ResponseEntity<?> buscarTodosETodosDePublicacao(@PathVariable String cpf) {
-			List<PerfilPermissao> listPerfilPermissao = permissaoService.buscarPerfilPermissaoPorCpf(cpf);
-			if(listPerfilPermissao == null || listPerfilPermissao.isEmpty()) {
-				return ResponseEntity.status(HttpStatus.OK).body(false);
-			}
-			else {
-				return ResponseEntity.status(HttpStatus.OK).body(true);
-			}
-		}
 	 
 }

@@ -10,6 +10,13 @@ public class TagDTO {
 		this.id = id;
 		this.descricao = descricao;
 		this.selecionado = selecionado;
+	}
+	
+	public TagDTO(Long id, String descricao, String cpfUsuario, Boolean selecionado) {
+		this.id = id;
+		this.descricao = descricao;
+		this.cpfUsuario = cpfUsuario;
+		this.selecionado = selecionado;
 	}	
 	
 	public TagDTO() {

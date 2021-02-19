@@ -18,13 +18,15 @@ public interface FavoritosRepository extends JpaRepository<Favoritos, Long> {
 			+ "join f.publicacao p "
 			+ "join f.usuario u "
 			+ "where u.cpf = ?1 "
-			+ "order by p.id")
+			+ "and u.ativo = true "
+			+ "order by p.dataCriacao desc")
 	Collection<Publicacao> getPublicacaoByIdUsuario(String cpf);
 	
 	@Query("Select f from Favoritos f "
 			+ "join f.publicacao p "
 			+ "join f.usuario u "
 			+ "where u.cpf = ?1 "
+			+ "and u.ativo = true "
 			+ "and p.id = ?2")
 	Optional<Favoritos> getFavoritoByIdUsuarioAndIdPublicacao(String cpf, Long idPublicacao);
 

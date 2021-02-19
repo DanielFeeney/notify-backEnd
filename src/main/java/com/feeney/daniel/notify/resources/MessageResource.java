@@ -51,9 +51,19 @@ public class MessageResource {
 	
 	@PostMapping("/atualizaToken")
 	public ResponseEntity<?> atualizaToken(@RequestParam("token") String token, @RequestParam("cpf") String cpf) {
-		System.out.println("atualizando: " + token);
 		Optional<Usuario> optUsuario = usuarioService.buscarPeloCpf(cpf);
 		if (optUsuario.isPresent()) {
+			Optional<Usuario> optUsuarioToken = usuarioService.buscarPeloToken(token);
+			if(optUsuarioToken.isPresent()) {
+				if(!optUsuario.get().getId().equals(optUsuarioToken.get().getId())) {
+					Usuario usuario = optUsuarioToken.get();
+					usuario.setFcmToken(null);
+					usuarioService.salvar(usuario);
+				}
+				else {
+					return ResponseEntity.status(HttpStatus.OK).body(optUsuario.get().getMsg());
+				}
+			}
 			Usuario usuario = optUsuario.get();
 			usuario.setFcmToken(token);
 			usuarioService.salvar(usuario);

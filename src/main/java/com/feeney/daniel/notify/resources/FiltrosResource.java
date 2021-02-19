@@ -37,7 +37,11 @@ public class FiltrosResource {
 		@PreAuthorize("hasAnyRole('ROLE_FILTROS')")
 		@GetMapping("/{cpf}")
 		public ResponseEntity<?> buscarTodos(@PathVariable String cpf) {
-			 return ResponseEntity.status(HttpStatus.OK).body(tagService.listarTagDTODoUsuario(cpf));
+			Collection<TagDTO> lista = tagService.listarTagDTODoUsuario(cpf);
+			for(TagDTO tagDTO : lista) {
+				tagDTO.setCpfUsuario(cpf);
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(lista);
 		}
 		
 		@PreAuthorize("hasAnyRole('ROLE_FILTROS')")

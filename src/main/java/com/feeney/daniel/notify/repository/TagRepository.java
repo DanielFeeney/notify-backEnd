@@ -21,6 +21,7 @@ public interface TagRepository extends JpaRepository<Tag, Long> {
 				+ "join f.tag t2 "
 				+ "where t2.id = t.id "
 				+ "AND u.cpf = ?1 "
+				+ "and u.ativo = true "
 				+ "AND t2.ativo = true) = 1 "
 				+ "THEN TRUE "
 				+ "ELSE FALSE "

@@ -13,10 +13,16 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.websocket.server.PathParam;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import com.feeney.daniel.notify.dto.PublicacaoDTO;
 
 @Entity
 @Table(name = "publicacao")
+@SQLDelete(sql="UPDATE publicacao SET ativo = false WHERE id = ?")
+@Where(clause = "ativo = true")
 public class Publicacao implements Serializable {
 
 	@Id

@@ -35,9 +35,8 @@ public class TagService implements IObject<Tag> {
 	}
 
 	@Override
-	@Transactional
 	public void remover(Long id) {
-		tagRepository.delete(id);
+		tagRepository.deleteById(id);
 		
 	}
 	

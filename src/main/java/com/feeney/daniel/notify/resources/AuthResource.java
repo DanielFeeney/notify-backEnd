@@ -31,11 +31,16 @@ public class AuthResource {
 	
 	@PostMapping("/refresh_token")
 	public ResponseEntity<?> refreshToken(HttpServletResponse response){
-		UserSS user = UsuarioService.authenticated();
-		String token = jwtUtil.generateToken(user.getUsername());
-		response.addHeader("Authorization", "Bearer " + token);
-		response.addHeader("access-control-expose-headers", "Authorization");
-		return ResponseEntity.noContent().build();
+		try {
+			UserSS user = UsuarioService.authenticated();
+			String token = jwtUtil.generateToken(user.getUsername());
+			response.addHeader("Authorization", "Bearer " + token);
+			response.addHeader("access-control-expose-headers", "Authorization");
+			return ResponseEntity.noContent().build();
+		}
+		catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
 	}
 	
 	/*

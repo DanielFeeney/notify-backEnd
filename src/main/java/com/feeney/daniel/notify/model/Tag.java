@@ -6,8 +6,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Entity
 @Table(name = "tag")
+@SQLDelete(sql="UPDATE tag SET ativo = false WHERE id = ?")
+@Where(clause = "ativo = true")
 public class Tag {
 	
 	@Id

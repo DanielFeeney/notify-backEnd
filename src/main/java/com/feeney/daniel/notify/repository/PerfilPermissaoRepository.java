@@ -17,11 +17,13 @@ public interface PerfilPermissaoRepository extends JpaRepository<PerfilPermissao
 			+ "join pp.permissao permissao "
 			+ "join pp.perfil perfil " 
 			+ "where perfil.id in ( "
-			+ "Select p.id from Usuario u "
+			+ "Select p.id from Usuario u "			
 			+ "join u.perfil p "
 			+ "where u.cpf = ?1 "
+			+ "and u.ativo = true "
 			+ ") "
-			+ "and permissao.descricao = 'ROLE_CREATE_TAG' ")
+			+ "and permissao.descricao = 'ROLE_CREATE_TAG' "
+			+ "or permissao.descricao = 'ROLE_USUARIO' ")
 		List<PerfilPermissao> buscarPermissoesPorCpf(String cpf);
 	
 }

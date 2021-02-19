@@ -20,6 +20,7 @@ public interface FiltrosRepository extends JpaRepository<Filtros, Long> {
 		+ " join f.usuario u "
 		+ " where t.id = ?2"
 		+ " and u.cpf = ?1"
+		+ " and u.ativo = true"
 		+ " and t.ativo = true")
 	Optional<Filtros> buscarFiltroPorUsuarioETag(String cpf, Long idTag);
 	
@@ -27,6 +28,7 @@ public interface FiltrosRepository extends JpaRepository<Filtros, Long> {
 		+ " join f.tag t "
 		+ " join f.usuario u "
 		+ " where t in ?1"
-		+ " and u.msg = true")
+		+ " and u.msg = true"
+		+ " and u.ativo = true")
 	Collection<String> buscarTokensDeUsuariosPorTag(Collection<Tag> listTag);
 }
