@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.feeney.daniel.notify.dto.UsuarioDTO;
+import com.feeney.daniel.notify.model.Perfil;
 import com.feeney.daniel.notify.model.PerfilPermissao;
 import com.feeney.daniel.notify.model.Usuario;
 import com.feeney.daniel.notify.services.PermissaoService;
@@ -84,8 +85,8 @@ public class PermissaoResource {
 	@PreAuthorize("hasAnyRole('ROLE_ACESSO')")
 	@GetMapping("tagUsuario/{cpf}")
 	public ResponseEntity<?> permissaoTagEUsuario(@PathVariable String cpf) {
-		List<PerfilPermissao> listPerfilPermissao = permissaoService.buscarPerfilPermissaoPorCpf(cpf);
-		if(listPerfilPermissao == null || listPerfilPermissao.isEmpty()) {
+		Perfil perfil = permissaoService.buscarPerfilPermissaoPorCpf(cpf);
+		if(perfil.getId() != 3) {
 			return ResponseEntity.status(HttpStatus.OK).body(false);
 		}
 		else {

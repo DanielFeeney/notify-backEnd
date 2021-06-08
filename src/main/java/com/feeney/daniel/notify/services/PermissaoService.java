@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.feeney.daniel.notify.interfaces.IObject;
+import com.feeney.daniel.notify.model.Perfil;
 import com.feeney.daniel.notify.model.PerfilPermissao;
 import com.feeney.daniel.notify.model.Permissao;
 import com.feeney.daniel.notify.repository.PerfilPermissaoRepository;
@@ -48,8 +49,8 @@ public class PermissaoService implements IObject<Permissao> {
 		return permissaoRepository.buscarPermissoesPorPerfil(idPerfil);
 	}
 	
-	public List<PerfilPermissao> buscarPerfilPermissaoPorCpf(String cpf){
-		return perfilPermissaoRepository.buscarPermissoesPorCpf(cpf);
+	public Perfil buscarPerfilPermissaoPorCpf(String cpf){
+		return perfilPermissaoRepository.buscarPerfilPorCpf(cpf);
 	}
 
 }

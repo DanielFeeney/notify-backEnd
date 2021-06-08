@@ -30,16 +30,18 @@ public class MessageService {
 
 	/* @Scheduled(fixedDelay = 30000) */
 	public void sendPushMessages(String token, String id, String titulo, String descricao) {
-		System.out.println("Sending personal message to: " + token);
-		Map<String, String> data = new HashMap<>();
-		data.put("id", id);
-		data.put("titulo", titulo);
-		data.put("descricao", descricao);
+		if(token != null && !token.isEmpty()) {
+			System.out.println("Sending personal message to: " + token);
+			Map<String, String> data = new HashMap<>();
+			data.put("id", id);
+			data.put("titulo", titulo);
+			data.put("descricao", descricao);
 
-		try {
-			this.fcmClient.sendPersonalMessage(token, data);
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
+			try {
+				this.fcmClient.sendPersonalMessage(token, data);
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}
